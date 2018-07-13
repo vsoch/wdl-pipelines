@@ -5,7 +5,7 @@
 <style>
 .more {
     float:right;
-    font-size: 1.0rem !important;
+    font-size: 1.4rem !important;
 }
 .more:hover {
     color: cornflowerblue !important;
@@ -43,7 +43,7 @@ $(document).ready(function() {
 
         // Permalink
         var link = "{{ site.url }}{{ page.url }}#" + did;
-        var button = "<p><a href='" + link + "' target='_blank'>Permalink</a></p>";
+        var button = "<p><a href='" + link + "' >Permalink</a></p>";
         start += button;
 
         // Edit (assuming deployed under docs, remove docs if on master)
