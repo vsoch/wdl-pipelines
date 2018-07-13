@@ -16,17 +16,17 @@ This is a supplementary work in progress for the official documentation that is 
 ## Getting Started
 You will first set up required dependencies, and then proceed with the pipeline of your choice.
 
- - [Setup](/setup) all of the pipelines require Cromwell and Docker. Let's set this up first.
+ - [Setup]({{ site.github.url }}/setup) all of the pipelines require Cromwell and Docker. Let's set this up first.
 
 After setup (which is brief for now) you can proceed by selecting a particular pipeline you want to run. Within these documentation bases are included instructions for running locally and with several cloud services. All options use Docker and Cromwell as a controller, so you should have already the minimum dependencies. Let's go!
 
- - [Chip-Seq](/pipeline-chip-seq) The ChipSeq pipeline
+ - [Chip-Seq]({{ site.github.url }}/pipeline-chip-seq) The ChipSeq pipeline
 
 ## Development
 If you are a developer and want to contribute to a repository, you will need to clone it and set up your workspace accordingly.
 
- - [1. Prepare your Workspace](/github): The first step is to clone a repository to your Github account, and download some sample data.
- - [2. Github Development](/development): if you aren't familiar with the Github flow to checkout branches for new features and changes.
+ - [1. Prepare your Workspace]({{ site.github.url }}/github): The first step is to clone a repository to your Github account, and download some sample data.
+ - [2. Github Development]({{ site.github.url }}/development): if you aren't familiar with the Github flow to checkout branches for new features and changes.
  - **3. Get help** If you need help, please don't hesitate to [reach out]({{ site.github.url }}/issues) and we will help you!
 
 
