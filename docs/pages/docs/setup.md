@@ -54,4 +54,4 @@ If your Docker is configured correctly and you've pulled and run the image, you 
 the console above. Good job! Did you notice in the command we added the "prod" tag to the end?
 "Prod" refers to the production image tag. If you need to find other tags, view them [here](https://hub.docker.com/r/broadinstitute/cromwell/tags/).
 
-That's all you need to get started! Let's now go back to the [Pipelines section](/pipelines#pipelines) where you can choose a pipeline you want to run.
+That's all you need to get started! Let's now go back to the [Pipelines section]({{ site.repo }}/#pipelines) where you can choose a pipeline you want to run.
