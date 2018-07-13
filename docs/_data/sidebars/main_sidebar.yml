@@ -1,0 +1,42 @@
+# This is the plan for the sidebar table of contents.
+
+entries:
+
+- title:
+  folders:
+
+  - title: Information
+    output: web, pdf
+    folderitems:
+
+    - title: About Encode
+      url: about
+      output: web, pdf
+
+  - title: Getting Started
+    output: web, pdf
+    folderitems:
+ 
+    - title: Setup
+      output: web, pdf
+      url: setup
+
+  - title: Pipelines
+    output: web, pdf
+    folderitems:
+
+    - title: ChIP-Seq
+      output: web, pdf
+      url: pipeline-chip-seq
+
+  - title: Development
+    output: web, pdf
+    folderitems:
+
+    - title: Github
+      url: github
+      output: web, pdf
+
+    - title: Continued Development
+      url: development
+      output: web, pdf
