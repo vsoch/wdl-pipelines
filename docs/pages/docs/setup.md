@@ -3,6 +3,7 @@ title: Setup
 sidebar: main_sidebar
 permalink: setup
 folder: docs
+toc: false
 ---
 
 ## 1. Docker
