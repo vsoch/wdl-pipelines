@@ -132,9 +132,7 @@ A zone refers to a physical location of a cloud resource. You can think of it li
 {
   "default_runtime_attributes" : {
     ...
-
     "zones": "us-west1-a us-west1-b us-west1-c",
-
     ...
 }
 ```
@@ -147,11 +145,8 @@ A [preemptible instance](https://cloud.google.com/compute/docs/instances/preempt
 ```json
 {
   "default_runtime_attributes" : {
-
     ...
-
     "preemptible": "0",
-
     ...
 }
 ```
