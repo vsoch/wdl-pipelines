@@ -345,19 +345,24 @@ docker run broadinstitute/cromwell:prod
 To run the pipeline, first define variables:
 
 ```bash
-OUTPUT_BUCKET=mybucket
+OUTPUT_BUCKET=gs://workflow-challenge
 PROJECT=chip-seq-pipeline
-SAMPLE_NAME=test
+SAMPLE_NAME=vanessasaurus
 WDL=chip.wdl
 INPUTS=examples/gce-ENCSR936XTK.json
 ```
 
-Then issue this command:
+Since we need our Google Application Credentials flie to show up in the container, I'm going to copy it to the present working directory too, and modify the path for the container.
 
 ```bash
-docker run -it --entrypoint java broadinstitute/cromwell:prod -jar -Dconfig.file=backends/backend.conf -Dbackend.default=google -Dbackend.providers.google.config.project=${PROJECT} -Dbackend.providers.google.config.root=${OUTPUT_BUCKET}/${SAMPLE_NAME} cromwell-32.jar run ${WDL} -i ${INPUTS} -o workflow_opts/docker.json
+cp $GOOGLE_APPLICATION_CREDENTIALS $PWD
+GOOGLE_CREDENTIALS_DOCKER=$(basename $GOOGLE_APPLICATION_CREDENTIALS)
+echo ${GOOGLE_CREDENTIALS_DOCKER}
+chip-seq-pipeline.json
 ```
-   
-Haven't tested this yet :)
 
-### DNAnexus
+Then issue this command. Notice that we are binding the present working directory to /opt (which I checked is empty) that way we can access all of our files from in the container at `/opt`:
+
+```bash
+docker run -v $PWD/:/opt -it --entrypoint java -e GOOGLE_APPLICATION_CREDENTIALS=/opt/${GOOGLE_CREDENTIALS_DOCKER} broadinstitute/cromwell:prod -jar -Dconfig.file=/opt/backends/backend.conf -Dbackend.default=google -Dbackend.providers.google.config.project=${PROJECT} -Dbackend.providers.google.config.root=${OUTPUT_BUCKET}/${SAMPLE_NAME} /app/cromwell.jar run /opt/${WDL} -i /opt/${INPUTS} -o /opt/workflow_opts/docker.json
+```
