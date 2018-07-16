@@ -170,9 +170,9 @@ The entire setup is pretty simple, the entire file might look like this:
 Okay, time to return to our data! First, know that there are two kinds of data that you need:
 
  - **reference genomes** are provided in Google Storage. Each file in Google Storage has it's own URL, and you can identify one of these URLs because it starts with `gs://`. Take a look at the [data available here](https://console.cloud.google.com/storage/browser/encode-pipeline-genome-data?project=encode-dcc-1016)
- - **experiment genomes** (controls) are provided in the [data portal](https://www.encodeproject.org/experiments/ENCSR970FPM/) we referenced earlier. This is called an experiment, and it's raw data that will go into our pipeline. 
+ - **experiment genomes** (controls) were originally provided in the [data portal](https://www.encodeproject.org/experiments/ENCSR970FPM/) we referenced earlier, and have also been downloaded to [Google Cloud Storage](https://console.cloud.google.com/storage/browser/chip-seq-pipeline-test-samples/ENCSR936XTK) for you to use. This is called an experiment, and it's raw data that will go into our pipeline.
 
-
+> If you have any trouble referencing the storage links above, contact the ENCODE-DCC or the owner of your project to get permissions.
 
 **Reference Genomes**
 
@@ -183,11 +183,22 @@ From the [Google Cloud Storage](https://console.cloud.google.com/storage/browser
 How did I choose these files, and get the public links? I looked at the input json file (shown below) and matched names to ones that I saw in Storage. I then copied the "Public Link" in the interface.
 
 **Experiment Genomics**
+The data that we will use is from an experiment downloaded in the data portal referenced earlier. Specifically, we are interested in these files:
 
-Specifically, for this example we want **fastq** files for controls from the experiment page. This is actually pretty hard to find! You first need to click on the experiment ID next to the bolded "Controls" and then scroll down to download files by clicking on the "Association Graph" or "File Details" panel. It's about halfway down the page. It should start downloads for `ENCFF*.fastq.gz` files. From here, you will need to upload these files to somewhere in your project storage, to again get a public URL for them akin to the one for the reference genome. For example, I might upload them here:
+ - gs://chip-seq-pipeline-test-samples/ENCSR936XTK/rep1-R1.fastq.gz
+ - gs://chip-seq-pipeline-test-samples/ENCSR936XTK/rep1-R2.fastq.gz
+ - gs://chip-seq-pipeline-test-samples/ENCSR936XTK/rep2-R1.fastq.gz,
+ - gs://chip-seq-pipeline-test-samples/ENCSR936XTK/rep2-R2.fastq.gz
 
- - https://storage.googleapis.com/encode-pipeline-genome-data/ENCFF000CMJ.fastq.gz
- - https://storage.googleapis.com/encode-pipeline-genome-data/ENCFF000CMD.fastq.gz
+ - gs://chip-seq-pipeline-test-samples/ENCSR936XTK/ctl1-R1.fastq.gz
+ - gs://chip-seq-pipeline-test-samples/ENCSR936XTK/ctl1-R2.fastq.gz
+ - gs://chip-seq-pipeline-test-samples/ENCSR936XTK/ctl2-R1.fastq.gz,
+ - gs://chip-seq-pipeline-test-samples/ENCSR936XTK/ctl2-R2.fastq.gz
+
+
+> Where did this data come from?
+
+Specifically, for this example we are using **fastq** files for controls from the experiment page. This is actually pretty hard to find! You would first need to click on the experiment ID next to the bolded "Controls" and then scroll down to download files by clicking on the "Association Graph" or "File Details" panel. It's about halfway down the page. It should start downloads for `ENCFF*.fastq.gz` files. From here, you would need to upload these files to somewhere in your project storage, to again get a public URL for them akin to the one for the reference genome. 
 
 Now it's a game of matching! Let's now define these variables in an input json file, the one that corresponds with the experiment name under "examples" (`ENCSR936XTK.json`).
 
@@ -204,7 +215,7 @@ $ cat examples/ENCSR936XTK.json
     "chip.pipeline_type" : "tf",
     "chip.genome_tsv" : "hg38/hg38_local.tsv",
     "chip.fastqs" : [
-        [["rep1-R1.fastq.gz",   (-- not sure what this is...
+        [["rep1-R1.fastq.gz",
           "rep1-R2.fastq.gz"]],
         [["rep2-R1.fastq.gz",
           "rep2-R2.fastq.gz"]]
@@ -238,14 +249,16 @@ $ cat examples/gce-ENCSR936XTK.json
     "chip.pipeline_type" : "tf",
     "chip.genome_tsv" : "gs://encode-pipeline-genome-data/hg38_google.tsv",
     "chip.fastqs" : [
-        [["rep1-R1.fastq.gz",
-          "rep1-R2.fastq.gz"]],
-        [["rep2-R1.fastq.gz",
-          "rep2-R2.fastq.gz"]]
+       [["gs://chip-seq-pipeline-test-samples/ENCSR936XTK/rep1-R1.fastq.gz",
+         "gs://chip-seq-pipeline-test-samples/ENCSR936XTK/rep1-R2.fastq.gz"]],
+       [["gs://chip-seq-pipeline-test-samples/ENCSR936XTK/rep2-R1.fastq.gz",
+         "gs://chip-seq-pipeline-test-samples/ENCSR936XTK/rep2-R2.fastq.gz"]]
     ],
     "chip.ctl_fastqs" : [
-        [["gs://encode-pipeline-genome-data/ENCFF000CMJ.fastq.gz"]],
-        [["gs://encode-pipeline-genome-data/ENCFF000CMD.fastq.gz"]]
+       [["gs://chip-seq-pipeline-test-samples/ENCSR936XTK/ctl1-R1.fastq.gz",
+         "gs://chip-seq-pipeline-test-samples/ENCSR936XTK/ctl1-R2.fastq.gz"]],
+       [["gs://chip-seq-pipeline-test-samples/ENCSR936XTK/ctl2-R1.fastq.gz",
+         "gs://chip-seq-pipeline-test-samples/ENCSR936XTK/ctl2-R2.fastq.gz"]]
     ],
 
     "chip.paired_end" : true,
