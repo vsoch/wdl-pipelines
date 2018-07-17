@@ -376,30 +376,15 @@ is [recorded here](https://github.com/vsoch/wdl-pipelines/blob/master/docs/pages
 
 #### Step 1. The Project
 
-Create a project, or if you are part of a lab, find the correct project to work from. In my case, the first screen I saw had a small table of projects, and I clicked on "Chip-Seq-Pipeline".
+Create a project, or if you are part of a lab, find the correct project to work from. In my case, the first screen I saw had a small table of projects, and I clicked on "Chip-Seq-Pipeline". I didn't interact much with the interface here, but I can imagine you would want to possibly upload data to use, or find paths for data that already exist (is there a "copy paste" way to do it?)
 
-### Step 2. Install Dependencies
+
+#### Step 2. Install Dependencies
 
 Just kidding, nobody wants to install things from scratch! You **could** follow the [instructions here](https://wiki.dnanexus.com/Downloads#DNAnexus-Platform-SDK) to install a set of local tools to interact with DNAnextus. OR you could just use a Docker container that has the tools you need. Actually, we are going to use two containers:
 
  - [vanessa/dx-toolkit](https://hub.docker.com/r/vanessa/dx-toolkit): (has dxWDL and dx-toolkit)
- - [dnanexus/dx-cwl:alpha](https://hub.docker.com/r/dnanexus/dx-cwl/)
 
-```bash
-$ docker run dnanexus/dx-cwl:alpha -h
-Error while retrieving session configuration: AttributeError: 'NoneType'
-object has no attribute 'pid'
-usage: dx-cwl [-h] {compile-tool,compile-workflow,run-workflow} ...
-
-positional arguments:
-  {compile-tool,compile-workflow,run-workflow}
-    compile-tool        Converts a CWL tool definition to a DNAnexus applet
-    compile-workflow    Converts a CWL workflow to a DNAnexus workflow
-    run-workflow        Run a CWL workflow on the platform
-
-optional arguments:
-  -h, --help            show this help message and exit
-```
 ```bash
 $ docker run vanessa/dx-toolkit
 java -jar dxWDL.jar <action> <parameters> [options]
@@ -414,7 +399,7 @@ Actions:
 
 You are of course free to install on your host, but it is easier to use a pre-built container. This is my preference.
 
-### Step 3. Convert to wdl
+#### Step 3. Convert to wdl
 
 At this point, we have found containers with both the DNAnexus sdk and a conversion tool, and we have also previously cloned the chip-seq repository. Let's now convert the widdle (wdl) file to a format that DNAnexus can use to launch an equivalent workflow.
 
