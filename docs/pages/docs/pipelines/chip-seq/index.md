@@ -366,3 +366,92 @@ Then issue this command. Notice that we are binding the present working director
 ```bash
 docker run -v $PWD/:/opt -it --entrypoint java -e GOOGLE_APPLICATION_CREDENTIALS=/opt/${GOOGLE_CREDENTIALS_DOCKER} broadinstitute/cromwell:prod -jar -Dconfig.file=/opt/backends/backend.conf -Dbackend.default=google -Dbackend.providers.google.config.project=${PROJECT} -Dbackend.providers.google.config.root=${OUTPUT_BUCKET}/${SAMPLE_NAME} /app/cromwell.jar run /opt/${WDL} -i /opt/${INPUTS} -o /opt/workflow_opts/docker.json
 ```
+
+The above command will run, and take at least a day to finish. If your terminal briefly loses internet
+connectivity, it should re-establish the connection again. Note that my workflow bugged out, and the bug
+is [recorded here](https://github.com/vsoch/wdl-pipelines/blob/master/docs/pages/docs/pipelines/chip-seq/gce-error.txt).
+
+### DNAnexus
+[DNAnexus](https://www.dnanexus.com/) is an online cloud platform for doing genomic analyses. You should [log in](https://platform.dnanexus.com/login).
+
+#### Step 1. The Project
+
+Create a project, or if you are part of a lab, find the correct project to work from. In my case, the first screen I saw had a small table of projects, and I clicked on "Chip-Seq-Pipeline".
+
+### Step 2. Install Dependencies
+
+Just kidding, nobody wants to install things from scratch! You **could** follow the [instructions here](https://wiki.dnanexus.com/Downloads#DNAnexus-Platform-SDK) to install a set of local tools to interact with DNAnextus. OR you could just use a Docker container that has the tools you need. Actually, we are going to use two containers:
+
+ - [vanessa/dx-toolkit](https://hub.docker.com/r/vanessa/dx-toolkit): (has dxWDL and dx-toolkit)
+ - [dnanexus/dx-cwl:alpha](https://hub.docker.com/r/dnanexus/dx-cwl/)
+
+```bash
+$ docker run dnanexus/dx-cwl:alpha -h
+Error while retrieving session configuration: AttributeError: 'NoneType'
+object has no attribute 'pid'
+usage: dx-cwl [-h] {compile-tool,compile-workflow,run-workflow} ...
+
+positional arguments:
+  {compile-tool,compile-workflow,run-workflow}
+    compile-tool        Converts a CWL tool definition to a DNAnexus applet
+    compile-workflow    Converts a CWL workflow to a DNAnexus workflow
+    run-workflow        Run a CWL workflow on the platform
+
+optional arguments:
+  -h, --help            show this help message and exit
+```
+```bash
+$ docker run vanessa/dx-toolkit
+java -jar dxWDL.jar <action> <parameters> [options]
+
+Actions:
+  compile <WDL file>
+    Compile a wdl file into a dnanexus workflow.
+    Optionally, specify a destination path on the
+    platform. If a WDL inputs files is specified, a dx JSON
+    inputs file is generated from it.
+```
+
+You are of course free to install on your host, but it is easier to use a pre-built container. This is my preference.
+
+### Step 3. Convert to wdl
+
+At this point, we have found containers with both the DNAnexus sdk and a conversion tool, and we have also previously cloned the chip-seq repository. Let's now convert the widdle (wdl) file to a format that DNAnexus can use to launch an equivalent workflow.
+
+> On DNANexus platform TSV files are on dx://project-FB7q5G00QyxBbQZb5k11115j.
+
+```bash
+docker run -it --entrypoint bash -v $PWD:/opt vanessa/dx-toolkit
+
+# Interactive login
+dx login
+
+WDL=chip.wdl
+DEST_DIR_ON_DX=dx://project-FJ4V1Kj0F4ZfqgJvGg9fz8Gg/data/workflow-challenge
+source /dx-toolkit/environment
+java -jar /dxWDL-0.69.jar compile /opt/chip.wdl -f -folder ${DEST_DIR_ON_DX} -defaults /opt/examples/dx/ENCSR936XTK_dx.json -extras /opt/workflow_opts/docker.json
+```
+The above would need to be programmatic - but given the (I think?) need for a login, I'm doing this way for now. I'm still getting an error:
+
+```
+Unsupported runtime attribute preemptible,we currently support Set(dx_instance_type, disks, docker, cpu, memory)
+Unsupported runtime attribute bootDiskSizeGb,we currently support Set(dx_instance_type, disks, docker, cpu, memory)
+Unsupported runtime attribute noAddress,we currently support Set(dx_instance_type, disks, docker, cpu, memory)
+Unsupported runtime attribute zones,we currently support Set(dx_instance_type, disks, docker, cpu, memory)
+java.lang.Exception: project is unspecified
+	at dxWDL.Main$.pathOptions(Main.scala:254)
+	at dxWDL.Main$.compile(Main.scala:384)
+	at dxWDL.Main$.dispatchCommand(Main.scala:588)
+	at dxWDL.Main$.delayedEndpoint$dxWDL$Main$1(Main.scala:641)
+	at dxWDL.Main$delayedInit$body.apply(Main.scala:12)
+	at scala.Function0.apply$mcV$sp(Function0.scala:34)
+	at scala.Function0.apply$mcV$sp$(Function0.scala:34)
+	at scala.runtime.AbstractFunction0.apply$mcV$sp(AbstractFunction0.scala:12)
+	at scala.App.$anonfun$main$1$adapted(App.scala:76)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at scala.App.main(App.scala:76)
+	at scala.App.main$(App.scala:74)
+	at dxWDL.Main$.main(Main.scala:12)
+	at dxWDL.Main.main(Main.scala)
+```
+
