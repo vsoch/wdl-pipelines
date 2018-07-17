@@ -438,20 +438,27 @@ Unsupported runtime attribute preemptible,we currently support Set(dx_instance_t
 Unsupported runtime attribute bootDiskSizeGb,we currently support Set(dx_instance_type, disks, docker, cpu, memory)
 Unsupported runtime attribute noAddress,we currently support Set(dx_instance_type, disks, docker, cpu, memory)
 Unsupported runtime attribute zones,we currently support Set(dx_instance_type, disks, docker, cpu, memory)
-java.lang.Exception: project is unspecified
-	at dxWDL.Main$.pathOptions(Main.scala:254)
-	at dxWDL.Main$.compile(Main.scala:384)
-	at dxWDL.Main$.dispatchCommand(Main.scala:588)
-	at dxWDL.Main$.delayedEndpoint$dxWDL$Main$1(Main.scala:641)
-	at dxWDL.Main$delayedInit$body.apply(Main.scala:12)
-	at scala.Function0.apply$mcV$sp(Function0.scala:34)
-	at scala.Function0.apply$mcV$sp$(Function0.scala:34)
-	at scala.runtime.AbstractFunction0.apply$mcV$sp(AbstractFunction0.scala:12)
-	at scala.App.$anonfun$main$1$adapted(App.scala:76)
-	at scala.collection.immutable.List.foreach(List.scala:389)
-	at scala.App.main(App.scala:76)
-	at scala.App.main$(App.scala:74)
-	at dxWDL.Main$.main(Main.scala:12)
-	at dxWDL.Main.main(Main.scala)
+Runtime attribute time for task merge_fastq is unknown
+Runtime attribute time for task trim_fastq is unknown
+Runtime attribute preemptible for task bwa is unknown
+Runtime attribute time for task bwa is unknown
+Runtime attribute time for task filter is unknown
+Runtime attribute time for task bam2ta is unknown
+Runtime attribute time for task spr is unknown
+Runtime attribute time for task pool_ta is unknown
+Runtime attribute time for task xcor is unknown
+Runtime attribute time for task fingerprint is unknown
+Runtime attribute time for task choose_ctl is unknown
+Runtime attribute time for task macs2 is unknown
+Runtime attribute preemptible for task spp is unknown
+Runtime attribute time for task spp is unknown
+Runtime attribute time for task idr is unknown
+Runtime attribute time for task overlap is unknown
+Runtime attribute time for task reproducibility is unknown
+Runtime attribute time for task qc_report is unknown
+Runtime attribute time for task read_genome_tsv is unknown
+Runtime attribute time for task rounded_mean is unknown
+Runtime attribute time for task compare_md5sum is unknown
+Empty output section, no outputs will be generated
 ```
 
