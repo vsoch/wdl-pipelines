@@ -427,11 +427,11 @@ docker run -it --entrypoint bash -v $PWD:/opt vanessa/dx-toolkit
 dx login
 
 WDL=chip.wdl
-DEST_DIR_ON_DX=dx://project-FJ4V1Kj0F4ZfqgJvGg9fz8Gg/data/workflow-challenge
+DEST_DIR_ON_DX=/workflow-challenge
 source /dx-toolkit/environment
-java -jar /dxWDL-0.69.jar compile /opt/chip.wdl -f -folder ${DEST_DIR_ON_DX} -defaults /opt/examples/dx/ENCSR936XTK_dx.json -extras /opt/workflow_opts/docker.json
+java -jar /dxWDL-0.69.jar compile /opt/chip.wdl -f -folder ${DEST_DIR_ON_DX} -defaults /opt/examples/dx/ENCSR936XTK_dx.json -extras /opt/workflow_opts/docker.json -project project-FJ4V1Kj0F4ZfqgJvGg9fz8Gg
 ```
-The above would need to be programmatic - but given the (I think?) need for a login, I'm doing this way for now. I'm still getting an error:
+The above would need to be programmatic - but given the (I think?) need for a login, I'm doing this way for now. Note that the project ordering for the `dx login` changes on each new login. I'm still getting an error:
 
 ```
 Unsupported runtime attribute preemptible,we currently support Set(dx_instance_type, disks, docker, cpu, memory)
