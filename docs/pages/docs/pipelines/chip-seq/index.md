@@ -460,5 +460,16 @@ Runtime attribute time for task read_genome_tsv is unknown
 Runtime attribute time for task rounded_mean is unknown
 Runtime attribute time for task compare_md5sum is unknown
 Empty output section, no outputs will be generated
+lookupObject: pipeline-test-samples/encode-chip-seq-pipeline/ENCSR936XTK/fastq/rep1-R1.fastq.gz
+lookupObject: pipeline-test-samples/encode-chip-seq-pipeline/ENCSR936XTK/fastq/rep1-R2.fastq.gz
+lookupObject: pipeline-test-samples/encode-chip-seq-pipeline/ENCSR936XTK/fastq/rep2-R1.fastq.gz
+lookupObject: pipeline-test-samples/encode-chip-seq-pipeline/ENCSR936XTK/fastq/rep2-R2.fastq.gz
+lookupObject: pipeline-test-samples/encode-chip-seq-pipeline/ENCSR936XTK/fastq/ctl1-R1.fastq.gz
+lookupObject: pipeline-test-samples/encode-chip-seq-pipeline/ENCSR936XTK/fastq/ctl1-R2.fastq.gz
+lookupObject: pipeline-test-samples/encode-chip-seq-pipeline/ENCSR936XTK/fastq/ctl2-R1.fastq.gz
+lookupObject: pipeline-test-samples/encode-chip-seq-pipeline/ENCSR936XTK/fastq/ctl2-R2.fastq.gz
+lookupObject: pipeline-genome-data/hg38_dx.tsv
+workflow-FJ76b6Q0F4Zk8P2zF7QbZjvQ
+$
 ```
 
