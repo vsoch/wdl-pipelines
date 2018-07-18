@@ -1,5 +1,5 @@
 ---
-title: The Scientific Filesyste
+title: Usage
 sidebar: main_sidebar
 permalink: usage
 folder: docs
