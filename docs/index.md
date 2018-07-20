@@ -21,6 +21,7 @@ You will first set up required dependencies, and then proceed with the pipeline 
 After setup (which is brief for now) you can proceed by selecting a particular pipeline you want to run. Within these documentation bases are included instructions for running locally and with several cloud services. All options use Docker and Cromwell as a controller, so you should have already the minimum dependencies. Let's go!
 
  - [Chip-Seq]({{ site.github.url }}/pipeline-chip-seq) The ChipSeq pipeline
+ - [HiC]({{ site.github.url }}/pipeline-hic) The HiC pipeline
 
 ## Development
 If you are a developer and want to contribute to a repository, you will need to clone it and set up your workspace accordingly.

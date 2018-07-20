@@ -29,6 +29,10 @@ entries:
       output: web, pdf
       url: pipeline-chip-seq
 
+    - title: HiC
+      output: web, pdf
+      url: pipeline-hic
+
   - title: Development
     output: web, pdf
     folderitems:

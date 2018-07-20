@@ -38,3 +38,18 @@ platforms are used. I would recommend:
  - Always start the user at the base of a folder (e.g., a repo clone) and guide them perfectly from there. If something is in a subfolder, don't assume they will find it.
 
 I tried to put together the example walk through in this repository to be (somewhat) closer to what I describe above, although there is still ample work to do, of course! I hope that this is helpful.
+
+## Template
+
+If you guys are interested, here is the [Github repo](https://github.com/vsoch/pipeline-template) for
+what an example template would look like (and usage). It comes down to being pretty easy:
+
+```bash
+pip install cookiecutter
+cookiecutter https://www.github.com/vsoch/pipeline-template
+```
+
+And then the user answers questions, and it spits out a starter template with the docs,
+continuous integration setup, etc. If you like this direction, I can keep working on it.
+
+<script src="https://asciinema.org/a/192458.js" id="asciicast-192458" async></script>
