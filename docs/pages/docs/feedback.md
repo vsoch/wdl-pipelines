@@ -52,4 +52,4 @@ cookiecutter https://www.github.com/vsoch/pipeline-template
 And then the user answers questions, and it spits out a starter template with the docs,
 continuous integration setup, etc. If you like this direction, I can keep working on it.
 
-<script src="https://asciinema.org/a/192458.js" id="asciicast-192458" async></script>
+<script src="https://asciinema.org/a/192458.js" id="asciicast-192458" data-speed="2" async></script>
